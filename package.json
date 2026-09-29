@@ -1,0 +1,18 @@
+{
+  "name": "kib1-cia-lab",
+  "version": "1.0.0",
+  "description": "KIB1 — CIA Incidentu laboratorija: interaktīva mācību lietotne par CIA triādi (Kiberdrošības tehniķis, 1. kurss)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "license": "UNLICENSED",
+  "dependencies": {
+    "express": "^4.22.3",
+    "sql.js": "^1.14.2"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  }
+}
