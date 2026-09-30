@@ -422,9 +422,19 @@ async function main() {
     console.log('');
     console.log('  KIB1 — CIA Incidentu laboratorija darbojas!');
     console.log('  ------------------------------------------------');
-    console.log(`  Šajā datorā:        http://localhost:${PORT}`);
-    for (const ip of ips) console.log(`  Audzēkņiem:         http://${ip}:${PORT}`);
-    console.log(`  Pedagoga panelis:   http://localhost:${PORT}/admin`);
+    if (process.env.CODESPACE_NAME) {
+      // GitHub Codespaces: iekšējās IP adreses audzēkņiem neder — rādām publisko saiti
+      const domain = process.env.GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN || 'app.github.dev';
+      const url = `https://${process.env.CODESPACE_NAME}-${PORT}.${domain}`;
+      console.log(`  Audzēkņiem:         ${url}`);
+      console.log(`  Pedagoga panelis:   ${url}/admin`);
+      console.log('  ! Cilnē "Ports" portam ' + PORT + ' iestati Port Visibility → Public,');
+      console.log('    citādi audzēkņiem prasīs pieslēgties GitHub.');
+    } else {
+      console.log(`  Šajā datorā:        http://localhost:${PORT}`);
+      for (const ip of ips) console.log(`  Audzēkņiem:         http://${ip}:${PORT}`);
+      console.log(`  Pedagoga panelis:   http://localhost:${PORT}/admin`);
+    }
     console.log(`  Piekļuves kods:     ${ACCESS_CODE}`);
     if (!process.env.ADMIN_PASSWORD) console.log('  ! Pedagoga parole ir noklusējuma "skolotajs" — nomaini to failā .env');
     console.log(`  Datubāze:           ${DB_FILE}`);
